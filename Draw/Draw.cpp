@@ -3,125 +3,106 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include "Draw.h"
 
 using namespace std;
 
-struct Canvas
-{
-	char ** buffer;
-	int width;
-	int height;
-
-	Canvas(int width, int height)
-	{
-		buffer = new char *[height];
-		for (int i = 0; i < height; ++i)
-		{
-			buffer[i] = new char[width];
-		}
-		for (int row = 0; row < height; ++row)
-		{
-			for (int column = 0; column < width; ++column)
-			{
-				buffer[row][column] = ' ';
-			}
-		}
-		this->width = width;
-		this->height = height;
-	}
-};
+// Canvas::Canvas(int width, int height)
+// {
+// 	buffer = new char *[height];
+// 	for (int i = 0; i < height; ++i)
+// 	{
+// 		buffer[i] = new char[width];
+// 	}
+// 	for (int row = 0; row < height; ++row)
+// 	{
+// 		for (int column = 0; column < width; ++column)
+// 		{
+// 			buffer[row][column] = ' ';
+// 		}
+// 	}
+// 	this->_width = width;
+// 	this->_height = height;
+// }
 
 // #define CANVAS_HEIGHT 25
-void InitCanvas(Canvas& canvas, int width, int height)
+void Canvas::Init(int width, int height)
 {
-	canvas.buffer = new char *[height];
+	this->buffer = new char *[height];
 	for (int i = 0; i < height; ++i)
 	{
-		canvas.buffer[i] = new char[width];
+		buffer[i] = new char[width];
 	}
 	for (int row = 0; row < height; ++row)
 	{
 		for (int column = 0; column < width; ++column)
 		{
-			canvas.buffer[row][column] = ' ';
+			buffer[row][column] = ' ';
 		}
 	}
-	canvas.width = width;
-	canvas.height = height;
+	_width = width;
+	_height = height;
 }
 
-// void InitCanvas(char canvas[CANVAS_HEIGHT][CANVAS_WIDTH], 
-// 	int width, 
-// 	int height)
-// {
-// 	for (int row = 0; row < CANVAS_HEIGHT; ++row)
-// 	{
-// 		for (int column = 0; column < CANVAS_WIDTH; ++column)
-// 		{
-// 			canvas[row][column] = ' ';
-// 		}
-// 	}
-// }
-
-void DrawRectangle(Canvas& canvas,
+void Canvas::DrawRectangle(
 	int left, int top, int width, int height)
 {
 	for (int i = 0; i < width; ++i)
 	{
-		canvas.buffer[top][left + i] = 
-			(canvas.buffer[top][left + i] == '|' ? '+' : '-');
-		canvas.buffer[top + height - 1][left + i] = 
-			(canvas.buffer[top + height - 1][left + i] == '|' ? '+' : '-');
+		buffer[top][left + i] = 
+			(buffer[top][left + i] == '|' ? '+' : '-');
+		buffer[top + height - 1][left + i] = 
+			(buffer[top + height - 1][left + i] == '|' ? '+' : '-');
 	}
 	for (int i = 0; i < height; ++i)
 	{
-		canvas.buffer[top + i][left] =
-			(canvas.buffer[top + i][left] == '-'? '+' : '|');
-		canvas.buffer[top + i][left + width - 1] =
-			(canvas.buffer[top + i][left + width -1] == '-' ? '+' : '|');
+		buffer[top + i][left] =
+			(buffer[top + i][left] == '-'? '+' : '|');
+		buffer[top + i][left + width - 1] =
+			(buffer[top + i][left + width -1] == '-' ? '+' : '|');
 	}
-
 }
 
-void OutputCanvas(const Canvas& canvas)
+void Canvas::Output() const
 {
-	for (int row = 0; row < canvas.height; ++row)
+	for (int row = 0; row < _height; ++row)
 	{
-		for (int column = 0; column < canvas.width; ++column)
+		for (int column = 0; column < _width; ++column)
 		{
-			cout << canvas.buffer[row][column];
+			cout << buffer[row][column];
 		}
 		cout << "\n";
 	}
 }
 
-void ReleaseCanvas(Canvas& canvas)
+void Canvas::Release()
 {
-	for (int i = 0; i < canvas.height; ++i)
+	for (int i = 0; i < _height; ++i)
 	{
-		delete[]canvas.buffer[i];
+		delete[]buffer[i];
 	}
 
-	delete[]canvas.buffer;
+	delete[]buffer;
 }
 
 int main()
 {
-	Canvas canvas(80, 25);
-	// InitCanvas(canvas, CANVAS_WIDTH, CANVAS_HEIGHT);
-	
+	Canvas canvas;
+	canvas.Init(80, 25);
+
 	for (;;)
 	{
 		cout << "Please input left, top, width, height: ";
 		int left, top, width, height;
 		cin >> left >> top >> width >> height;
 
-		DrawRectangle(canvas, left, top, width, height);
-		OutputCanvas(canvas);
+		canvas.DrawRectangle(left, top, width, height);
+		canvas.Output();
 	}
 
-	ReleaseCanvas(canvas);
+	canvas.Release();
 
     return 0;
 }
+
 
