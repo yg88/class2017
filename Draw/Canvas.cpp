@@ -24,15 +24,11 @@ void Canvas::Init(int width, int height)
 	{
 		_buffer[i] = new char[width];
 	}
-	for (int row = 0; row < height; ++row)
-	{
-		for (int column = 0; column < width; ++column)
-		{
-			_buffer[row][column] = ' ';
-		}
-	}
+
 	_width = width;
 	_height = height;
+
+	Clear();
 }
 
 void Canvas::DrawRectangle(
@@ -63,6 +59,17 @@ void Canvas::Output() const
 			cout << _buffer[row][column];
 		}
 		cout << "\n";
+	}
+}
+
+void Canvas::Clear()
+{
+	for (int row = 0; row < _height; ++row)
+	{
+		for (int column = 0; column < _width; ++column)
+		{
+			_buffer[row][column] = ' ';
+		}
 	}
 }
 

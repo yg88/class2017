@@ -8,6 +8,7 @@ public:
 
 	void DrawRectangle(int left, int top, int width, int height);
 	void Output() const;
+	void Clear();
 
 private:
 	void Init(int width, int height);
