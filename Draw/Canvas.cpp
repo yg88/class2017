@@ -50,6 +50,24 @@ void Canvas::DrawRectangle(
 	}
 }
 
+void Canvas::DrawLine(int x1, int y1, int x2, int y2)
+{
+	if (x1 == x2)
+	{
+		for (int row = y1; row <= y2; ++row)
+		{
+			_buffer[row][x1] = '|';
+		}
+	}
+	else if (y1 == y2)
+	{
+		for (int column = x1; column <= x2; ++column)
+		{
+			_buffer[y1][column] = '-';
+		}
+	}
+}
+
 void Canvas::Output() const
 {
 	for (int row = 0; row < _height; ++row)

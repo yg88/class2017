@@ -1,15 +1,16 @@
 #pragma once
+#include "GraphicsObject.h"
 
 class Canvas;
 
-class Rectangle
+class Rectangle : public GraphicsObject
 {
 public:
 	Rectangle(int left, int top, int width, int height);
 	Rectangle(const Rectangle& source);
 	~Rectangle();
 
-	void Draw(Canvas& canvas);
+	virtual void Draw(Canvas& canvas) override;
 
 private:
 	int _left;
