@@ -146,12 +146,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canvas.h" />
+    <ClInclude Include="GraphicsObject.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Draw.cpp" />
+    <ClCompile Include="GraphicsObject.cpp" />
+    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
